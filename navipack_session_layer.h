@@ -10,7 +10,7 @@
 #ifndef __NAVIPACK_SESSION_LAYER_H__
 #define __NAVIPACK_SESSION_LAYER_H__
 
-#include "stm32_lib.h"
+#include "navipack_type.h"
 #include "navipack_api.h"
 
 bool RegisterWrite(NaviPack_HeadType *head, u8 *reg, u32 size, u8 reg_id);

@@ -10,7 +10,7 @@
 #ifndef  __NAVIPACK_API_H__
 #define  __NAVIPACK_API_H__
 
-#include "stm32_lib.h"
+#include "navipack_type.h"
 
 #define CHASSIS_PLATFORM
 #include "navipack_protocol.h"

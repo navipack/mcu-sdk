@@ -10,7 +10,7 @@
 #ifndef  __NAVIPACK_TRANSPORT_LAYER_H__
 #define  __NAVIPACK_TRANSPORT_LAYER_H__
 
-#include "stm32_lib.h"
+#include "navipack_type.h"
 
 /** @defgroup PACK_FLAG_define
   * @{

@@ -74,6 +74,7 @@ bool NaviPack_RxProcessor(NavipackComm_Type *comm, u8 data)
         comm->rxDataLen = comm->rxFrame.offset;
         
         RxProcessor(comm, (NaviPack_HeadType*)comm->rxBuffer, comm->rxDataLen);
+        true;
     }
     return false;
 }

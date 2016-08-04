@@ -49,10 +49,12 @@ static void RxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head, u16 le
             NaviPack_TxProcessor(comm, head);
             break;
         case FUNC_ID_WRITE_CONTROL:
-            RegisterWrite(head, (u8*)&NaviPack_Global.control, sizeof(NaviPack_Global.control), REG_ID_COTROL);
-            
-            // NaviPack_Global.control.lineVelocity
-            // NaviPack_Global.control.angularVelocity
+            if(RegisterWrite(head, (u8*)&NaviPack_Global.control, sizeof(NaviPack_Global.control), REG_ID_COTROL))
+            {
+                // TODO: 获得接收到的新值
+                // NaviPack_Global.control.lineVelocity
+                // NaviPack_Global.control.angularVelocity
+            }
             break;
         }
     }

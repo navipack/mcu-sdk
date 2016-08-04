@@ -32,9 +32,10 @@ bool RegisterWrite(NaviPack_HeadType *head, u8 *reg, u32 reg_size, u8 reg_id)
     {
         memcpy(reg + head->startAddr, (u8*)(head + 1), head->len);
         Navipack_UnlockReg(reg_id);
+        return true;
     }
     
-    return true;
+    return false;
 }
 
 /**

@@ -1,3 +1,9 @@
+# Navipack Communication MCU SDK
+Navipack MCU 使用的通讯 SDK。
+
+## Copyright &copy; 2016 Inmotion Corporation
+该仓库所有文件为**深圳乐行天下科技有限公司**所有，如果想用于商业用途，请与我们联系。
+
 # 使用说明
 ## 移植
 1. 将源码加入工程，将源码文件夹的路径添加到 include 头文件的路径。

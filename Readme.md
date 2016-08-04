@@ -17,6 +17,7 @@ MCU 使用的 Navipack 通讯 SDK。
 
 ## 调用
 参考 `example.c` 中的调用例程。该文件中的代码只是范例，并不是可直接编译运行的代码，需要移植完成才能看到运行效果。
+
 1. 为发送和接收分别准备 Buffer。
 2. 定义 `NavipackComm_Type` 类型的变量，把 Buffer 指针分别赋值给该变量的 `rxBuffer` 和 `txBuffer` 成员。
 3. 同时把两个 Buffer 的尺寸赋值给以上变量的 `rxSize` 和 `txSize` 成员。

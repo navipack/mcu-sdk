@@ -2,7 +2,7 @@
 ******************************************************************************
 * @file    navipack_api.c
 * @author  Jalon
-* @date    2016.02.01
+* @date    2016.07.01
 * @brief   通讯协议接口，该文件在移植过程中需要根据实际情况更改，
            部分函数需要用户实现
 * @attention Copyright (C) 2016 Inmotion
@@ -45,7 +45,7 @@ static void RxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head, u16 le
         case FUNC_ID_READ_STATUS:
         case FUNC_ID_READ_CONTROL:
         case FUNC_ID_READ_CONFIG:
-            // TODO: 如果发送和接收不是同一个线程，则应改成通知发送线程调用该函数
+            // TODO: 如果发送和接收不是同一个线程，则应改成通知发送线程调用该发送函数
             NaviPack_TxProcessor(comm, head);
             break;
         case FUNC_ID_WRITE_CONTROL:
@@ -60,8 +60,8 @@ static void RxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head, u16 le
 
 /**
 * @brief  通讯接收数据处理函数
-* @param  comm      : 通讯对象
-* @param  data      : 接收数据，单 byte
+* @param  comm : 通讯对象
+* @param  data : 接收数据，单 byte
 * @retval 是否成功处理了数据包
 */
 bool NaviPack_RxProcessor(NavipackComm_Type *comm, u8 data)
@@ -81,8 +81,8 @@ bool NaviPack_RxProcessor(NavipackComm_Type *comm, u8 data)
 
 /**
 * @brief  通讯发送数据处理函数
-* @param  comm      : 通讯对象
-* @param  head      : 接收数据，单 byte
+* @param  comm : 通讯对象
+* @param  head : 接收数据，单 byte
 * @retval 是否成功处理了数据包
 */
 bool NaviPack_TxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head)

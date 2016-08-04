@@ -1,5 +1,12 @@
-// µ÷ÓÃÀı³Ì
-// ±ØĞëÔÚ¹¤³ÌÖĞ¶¨Òåºê CHASSIS_PLATFORM
+/**
+******************************************************************************
+* @file    example.c
+* @author  Jalon
+* @date    2016.07.01
+* @brief   è¯¥ä»£ç åªæ˜¯è°ƒç”¨é€šè®¯æ¥å£èŒƒä¾‹ï¼Œå¹¶éç›´æ¥å¯è¿è¡Œçš„ç¨‹åº
+* @attention Copyright (C) 2016 Inmotion
+******************************************************************************
+*/
 
 #include "navipack_api.h"
 
@@ -20,10 +27,10 @@ void Boost(void)
             0,
             sizeof(NaviPack_StatusType),
         };
-        
+    
     if(NaviPack_TxProcessor(&Comm, head))
     {
-        // ³É¹¦·¢ËÍÁËÖ¸¶¨µÄ¼Ä´æÆ÷ÄÚÈİ
+        // æˆåŠŸå‘é€äº†æŒ‡å®šçš„å¯„å­˜å™¨å†…å®¹
     }
 }
 
@@ -32,20 +39,21 @@ void Recv(void)
     u8* data;
     u32 len, i;
     
-    len = RecvData(data); // ÓÃ»§³ÌĞò£¬´ÓÍ¨Ñ¶½Ó¿Ú½ÓÊÕÊı¾İ
+    len = RecvData(data); // ç”¨æˆ·ç¨‹åºï¼Œä»é€šè®¯æ¥å£æ¥æ”¶æ•°æ®
         
     for(i=0; i<len; i++)
     {
+        // é€ä¸ª byte çš„è°ƒç”¨è¯¥æ¥å£
         if(NaviPack_RxProcessor(&comm, data[i]))
         {
-            //³É¹¦´¦ÀíÁËÒ»¸ö¼Ä´æÆ÷²Ù×÷
+            //æˆåŠŸå¤„ç†äº†ä¸€ä¸ªå¯„å­˜å™¨æ“ä½œ
         }
     }
 }
 
 int main(void)
 {
-    // ³õÊ¼»¯
+    // åˆå§‹åŒ–
     Comm.rxBuffer = RecvBuf;
     Comm.rxSize = sizeof(RecvBuf);    
     Comm.txBuffer = SendBuf;
@@ -55,11 +63,13 @@ int main(void)
     
     while(1)
     {
+        // æ¥æ”¶å¤„ç†æ ¹æ®ç”¨æˆ·çš„ç¨‹åºæ¶æ„æ¥å†³å®šè°ƒç”¨ä½ç½®ï¼Œæ¯”å¦‚ä¸­æ–­é‡Œè°ƒç”¨
         Recv();
         
-        // ¸ø×´Ì¬¼Ä´æÆ÷¸³Öµ
-        NaviPack_Global.status.lineVelocity = v;        
-        // 10 ms µ÷ÓÃÒ»´Î£¬·¢ËÍ×´Ì¬¼Ä´æÆ÷µÄÖµ
-        Boost();
+        // è°ƒç”¨å‘é€å‡½æ•°å‰å¿…é¡»å°†æ–°çš„å€¼å¡«å…¥å¯¹åº”çš„å˜é‡ä¸­
+        NaviPack_Global.status.lineVelocity = v;
+        NaviPack_Global.status.angularVelocity = w;
+        
+        Boost(); // æ¨è 10 ms è°ƒç”¨ä¸€æ¬¡ï¼ŒæŒç»­å‘ä¸Šä½æœºå‘é€çŠ¶æ€å¯„å­˜å™¨çš„å€¼
     }
 }

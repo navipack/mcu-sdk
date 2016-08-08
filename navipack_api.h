@@ -2,7 +2,7 @@
 ******************************************************************************
 * @file    navipack_api.h
 * @author  Jalon
-* @date    2016.07.01
+* @date    2016.02.01
 * @brief   通讯协议相关声明
 * @attention Copyright (C) 2016 Inmotion
 ******************************************************************************
@@ -22,27 +22,21 @@
 
 typedef struct
 {
-    u8 *rxBuffer;
-    u8 *txBuffer;
+    // 需要初始化
+    u8 *rxBuffer;   ///< 接收 Buffer 指针
+    u8 *txBuffer;   ///< 发送 Buffer 指针
+    u16 rxSize;     ///< 接收 Buffer 尺寸
+    u16 txSize;     ///< 发送 Buffer 尺寸
+    
     u16 rxDataLen;
     u16 txDataLen;
-    u16 rxSize;
-    u16 txSize;
     TransportFrame_Type rxFrame;
     TransportFrame_Type txFrame;
+    
+    NaviPack_CtrlType control;  ///< 控制寄存器
+    NaviPack_StatusType status; ///< 状态寄存器
+    NaviPack_ConfigType config; ///< 参数寄存器
 }NavipackComm_Type;
-
-#pragma pack(push, 1)
-
-typedef struct{
-    NaviPack_CtrlType control;
-    NaviPack_StatusType status;
-    NaviPack_ConfigType config;
-}NaviPack_GlobalType;
-
-#pragma pack(pop)
-
-extern NaviPack_GlobalType NaviPack_Global;
 
 bool NaviPack_Init(void);
 bool NaviPack_TxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head);

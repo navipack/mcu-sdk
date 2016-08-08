@@ -19,7 +19,7 @@ NavipackComm_Type Comm;
 u8 RecvBuf[NAVIPACK_COMM_SIZE];
 u8 SendBuf[NAVIPACK_COMM_SIZE*2+6];
 
-void Boost(void)
+void SendStatus(void)
 {
     NaviPack_HeadType head = {
             NAVIPACK_SLAVE_ID,
@@ -27,6 +27,10 @@ void Boost(void)
             0,
             sizeof(NaviPack_StatusType),
         };
+        
+    // 调用发送函数前必须将新的值填入对应的寄存器变量中
+    Comm.status.lineVelocity = v;
+    Comm.status.angularVelocity = w;
     
     if(NaviPack_TxProcessor(&Comm, head))
     {
@@ -36,18 +40,13 @@ void Boost(void)
 
 void Recv(void)
 {
-    u8* data;
-    u32 len, i;
-    
-    len = RecvData(data); // 用户程序，从通讯接口接收数据
+    // 用户自己的接收程序，从通讯接口接收数据
+    u8 data = RecvData();
         
-    for(i=0; i<len; i++)
+    // 逐个 byte 的调用该接口，读取新收到的数据方法见 RxProcessor() 函数
+    if(NaviPack_RxProcessor(&comm, data))
     {
-        // 逐个 byte 的调用该接口
-        if(NaviPack_RxProcessor(&comm, data[i]))
-        {
-            //成功处理了一个寄存器操作
-        }
+        //成功接收并处理了一个寄存器操作
     }
 }
 
@@ -63,13 +62,11 @@ int main(void)
     
     while(1)
     {
-        // 接收处理根据用户的程序架构来决定调用位置，比如中断里调用
+        // 接收处理根据用户的程序架构来决定调用位置，比如在接收中断里调用
         Recv();
         
-        // 调用发送函数前必须将新的值填入对应的变量中
-        NaviPack_Global.status.lineVelocity = v;
-        NaviPack_Global.status.angularVelocity = w;
-        
-        Boost(); // 推荐 10 ms 调用一次，持续向上位机发送状态寄存器的值
+        // 推荐 10 ms 调用一次，持续向上位机发送状态寄存器的数据
+        SendStatus();
+        Sleep(10);
     }
 }

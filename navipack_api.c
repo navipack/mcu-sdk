@@ -11,7 +11,7 @@
 #include "navipack_api.h"
 #include "navipack_session_layer.h"
 
-NaviPack_GlobalType NaviPack_Global;
+// TODO: 引入需要的头文件
 
 /**
 * @brief  初始化
@@ -26,6 +26,7 @@ bool NaviPack_Init(void)
 
 /**
 * @brief  通讯接收数据解析函数
+* @param  comm : 通讯结构指针
 * @param  head : 数据指针
 * @param  len  : 数据长度
 * @retval None
@@ -49,11 +50,11 @@ static void RxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head, u16 le
             NaviPack_TxProcessor(comm, head);
             break;
         case FUNC_ID_WRITE_CONTROL:
-            if(RegisterWrite(head, (u8*)&NaviPack_Global.control, sizeof(NaviPack_Global.control), REG_ID_COTROL))
+            if(RegisterWrite(head, (u8*)&comm->control, sizeof(comm->control), REG_ID_COTROL))
             {
                 // TODO: 获得接收到的新值
-                // NaviPack_Global.control.lineVelocity
-                // NaviPack_Global.control.angularVelocity
+                // comm->control.lineVelocity
+                // comm->control.angularVelocity
             }
             break;
         }
@@ -62,7 +63,7 @@ static void RxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head, u16 le
 
 /**
 * @brief  通讯接收数据处理函数
-* @param  comm : 通讯对象
+* @param  comm : 通讯结构指针
 * @param  data : 接收数据，单 byte
 * @retval 是否成功处理了数据包
 */
@@ -76,14 +77,14 @@ bool NaviPack_RxProcessor(NavipackComm_Type *comm, u8 data)
         comm->rxDataLen = comm->rxFrame.offset;
         
         RxProcessor(comm, (NaviPack_HeadType*)comm->rxBuffer, comm->rxDataLen);
-        true;
+        return true;
     }
     return false;
 }
 
 /**
 * @brief  通讯发送数据处理函数
-* @param  comm : 通讯对象
+* @param  comm : 通讯结构指针
 * @param  head : 接收数据，单 byte
 * @retval 是否成功处理了数据包
 */
@@ -93,13 +94,13 @@ bool NaviPack_TxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head)
     switch(head->functionCode)
     {
     case FUNC_ID_READ_STATUS:
-        RegisterRead(comm, head, 0, (u8*)&NaviPack_Global.status, sizeof(NaviPack_Global.status), REG_ID_STATUS);
+        RegisterRead(comm, head, 0, (u8*)&comm->status, sizeof(comm->status), REG_ID_STATUS);
         break;
     case FUNC_ID_READ_CONTROL:
-        RegisterRead(comm, head, 0, (u8*)&NaviPack_Global.control, sizeof(NaviPack_Global.control), REG_ID_COTROL);
+        RegisterRead(comm, head, 0, (u8*)&comm->control, sizeof(comm->control), REG_ID_COTROL);
         break;
     case FUNC_ID_READ_CONFIG:
-        RegisterRead(comm, head, 0, (u8*)&NaviPack_Global.config, sizeof(NaviPack_Global.config), REG_ID_CONFIG);
+        RegisterRead(comm, head, 0, (u8*)&comm->config, sizeof(comm->config), REG_ID_CONFIG);
         break;
     case FUNC_ID_WRITE_CONTROL:
         // ACK 暂无

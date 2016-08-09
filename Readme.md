@@ -1,4 +1,4 @@
-# Navipack Communication MCU SDK
+# Navipack MCU SDK
 MCU 使用的 Navipack 通讯 SDK。
 
 ## Copyright &copy; 2016 Inmotion Corporation

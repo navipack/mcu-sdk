@@ -78,3 +78,86 @@ bool RegisterRead(NavipackComm_Type *comm, NaviPack_HeadType *head, u8 err_id, u
     
     return false;
 }
+
+/**
+* @brief  通讯接收数据解析函数
+* @param  comm : 通讯结构指针
+* @param  head : 数据指针
+* @param  len  : 数据长度
+* @retval None
+*/
+static void RxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head, u16 len)
+{
+    if(head->deviceAddr == NAVIPACK_SLAVE_ID)
+    {
+        if(head->len != len - sizeof(NaviPack_HeadType))
+        {
+            return;
+        }
+        
+        switch(head->functionCode)
+        {
+        case FUNC_ID_WRITE_CONTROL:
+            if(!RegisterWrite(head, (u8*)&comm->control, sizeof(comm->control), REG_ID_COTROL))
+            {
+                return;
+            }
+            break;
+        }
+        
+        Navipack_RxCallback(comm, head);
+    }
+}
+
+/**
+* @brief  通讯接收数据处理函数
+* @param  comm : 通讯对象
+* @param  data : 接收数据，单 byte
+* @retval 是否成功处理了数据包
+*/
+bool NaviPack_SessionRxProcessor(NavipackComm_Type *comm, u8 data)
+{
+    if(comm->rxFrame.buffer != comm->rxBuffer)
+    {
+        comm->rxFrame.buffer = comm->rxBuffer;
+        comm->rxFrame.size = comm->rxSize;
+    }
+    
+    if(Navipack_TransportUnpacking(&comm->rxFrame, data))
+    {
+        //解包处理成功
+        comm->rxDataLen = comm->rxFrame.offset;
+        
+        RxProcessor(comm, (NaviPack_HeadType*)comm->rxBuffer, comm->rxDataLen);
+        return true;
+    }
+    return false;
+}
+
+/**
+* @brief  通讯发送数据处理函数
+* @param  comm : 通讯对象
+* @param  head : 接收数据，单 byte
+* @retval 是否成功处理了数据包
+*/
+bool NaviPack_SessionTxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head)
+{
+    switch(head->functionCode)
+    {
+    case FUNC_ID_READ_STATUS:
+        RegisterRead(comm, head, 0, (u8*)&comm->status, sizeof(comm->status), REG_ID_STATUS);
+        break;
+    case FUNC_ID_READ_CONTROL:
+        RegisterRead(comm, head, 0, (u8*)&comm->control, sizeof(comm->control), REG_ID_COTROL);
+        break;
+    case FUNC_ID_READ_CONFIG:
+        RegisterRead(comm, head, 0, (u8*)&comm->config, sizeof(comm->config), REG_ID_CONFIG);
+        break;
+    case FUNC_ID_WRITE_CONTROL:
+        break;
+    default:
+        return false;
+    }
+    
+    return true;
+}

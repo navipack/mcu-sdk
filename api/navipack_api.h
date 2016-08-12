@@ -19,6 +19,7 @@
 #define REG_ID_STATUS   0
 #define REG_ID_COTROL   1
 #define REG_ID_CONFIG   2
+#define REG_ID_USER     3
 
 typedef struct
 {

@@ -10,7 +10,7 @@
 #ifndef __NAVIPACK_PROTOCOL_H__
 #define __NAVIPACK_PROTOCOL_H__
 
-#pragma pack(push, 1) 
+#pragma pack(push, 1)
 
 typedef struct
 {
@@ -40,9 +40,6 @@ typedef struct
 {
 	s32 lineVelocity;
 	s32 angularVelocity;
-#if defined(_DEBUG) && defined(CHASSIS_PLATFORM)
-	u32 debugData;
-#endif
 }ChassisControlRegister;
 
 typedef struct
@@ -91,6 +88,8 @@ typedef struct
 #define MCU_CONTROL_REG        0x02
 #define MCU_STATUS_REG         0x03
 #define MCU_PARAM_REG          0x04
+#define MCU_USER_REG_READ      0x05
+#define MCU_USER_REG_WRITE     0x06
 
 #ifdef CHASSIS_PLATFORM
 
@@ -100,6 +99,8 @@ typedef struct
 #define FUNC_ID_WRITE_CONTROL MCU_CONTROL_REG
 #define FUNC_ID_READ_STATUS   MCU_STATUS_REG
 #define FUNC_ID_READ_CONFIG   MCU_PARAM_REG
+#define FUNC_ID_READ_USER     MCU_USER_REG_READ
+#define FUNC_ID_WRITE_USER    MCU_USER_REG_WRITE
   
 typedef ChassisControlRegister NaviPack_CtrlType;
 typedef ChassisStatusRegister NaviPack_StatusType;

@@ -33,6 +33,7 @@ typedef struct
 	s32 angularVelocity;
 	u8 chargeStatus;
 	u8 batteryStatus;
+    u8 pickupStatus;
 	u16 errorState;
 }ChassisStatusRegister;
 

@@ -20,13 +20,13 @@ MCU 使用的 Navipack 通讯 SDK。
 2. 定义 `NavipackComm_Type` 类型的全局变量，把 Buffer 指针分别赋值给该变量的 `rxBuffer` 和 `txBuffer` 成员。
 3. 同时把两个 Buffer 的尺寸赋值给以上变量的 `rxSize` 和 `txSize` 成员。
 4. 接收要逐个 byte 的调用 `NaviPack_RxProcessor()` 接口。
-5. 发送要先用 `NaviPack_HeadType` 定义一个会话层数据头，并填入的信息，其中 `startAddr` 代表要发送的内容在寄存器中的偏移。
+5. 发送要先用 `NaviPack_HeadType` 定义一个会话层数据头，并填入相应的信息，其中 `startAddr` 代表要发送的内容在寄存器中的偏移。
 6. 然后向第 2 步定义的全局变量中的对应寄存器填入新值，再调用 `NaviPack_TxProcessor()` 发送即可。
 
 详细参考 `example.c` 中的调用例程。
 
 # 文件结构简介
-    /
+    mcu-sdk
     │  Readme.md  说明
     │  example.c  sdk 接口调用示例
     │

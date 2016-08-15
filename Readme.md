@@ -9,7 +9,7 @@ MCU 使用的 Navipack 通讯 SDK。
 1. 将源码加入工程，将 api，core 文件夹的路径添加到头文件 include 的路径。
 2. 在 `navipack_type.h` 中添加缺少的数据类型，如 `bool`,`s32` 等，保证编译能够顺利通过。
 3. 接收数据的移植需要在 `navipack_api.c` 中的 `Navipack_RxCallback()` 函数下的 `switch` 内添加用户自己需要的处理。
-4. 发送数据的移植需要在 `navipack_api.c` 中的 `Navipack_SendData()` 函数下添加实际将数据发送出去的处理。
+4. 发送数据的移植需要在 `navipack_api.c` 中的 `Navipack_TxCallback()` 函数下添加实际将数据发送出去的处理。
 
 完成以上步骤并编译通过，则移植成功。
 

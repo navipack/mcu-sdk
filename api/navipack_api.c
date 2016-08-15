@@ -94,7 +94,7 @@ bool NaviPack_TxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head)
 * @param  len  : 数据长度
 * @retval None
 */
-void Navipack_SendData(u8* pbuf, u16 len)
+void Navipack_TxCallback(u8* pbuf, u16 len)
 {
     // TODO: 用户添加实际发送数据的处理，如发送到串口
 }

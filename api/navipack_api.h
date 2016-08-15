@@ -22,6 +22,5 @@ bool NaviPack_TxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head);
 bool NaviPack_RxProcessor(NavipackComm_Type *comm, u8 data);
 bool Navipack_LockReg(u8 reg_id);
 void Navipack_UnlockReg(u8 reg_id);
-void Navipack_SendData(u8* pbuf, u16 len);
 
 #endif

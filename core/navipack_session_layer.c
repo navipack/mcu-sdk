@@ -60,13 +60,11 @@ bool RegisterRead(NavipackComm_Type *comm, NaviPack_HeadType *head, u8 err_id, u
     
     if(Navipack_LockReg(reg_id))
     {
-        comm->txFrame.buffer = comm->txBuffer;
-        comm->txFrame.size = comm->txSize;
-        ret = Navipack_TransportPacking(&comm->txFrame, (u8*)head, sizeof(NaviPack_HeadType), PACK_FLAG_BEGIN);
+        ret = Navipack_TransportPacking(comm, (u8*)head, sizeof(NaviPack_HeadType), PACK_FLAG_BEGIN);
         if(!ret) return false;
-        ret = Navipack_TransportPacking(&comm->txFrame, reg + head->startAddr, head->len, 0);
+        ret = Navipack_TransportPacking(comm, reg + head->startAddr, head->len, 0);
         if(!ret) return false;
-        ret = Navipack_TransportPacking(&comm->txFrame, &err_id, 1, PACK_FLAG_END);
+        ret = Navipack_TransportPacking(comm, &err_id, 1, PACK_FLAG_END);
         if(!ret) return false;
         comm->txDataLen = comm->txFrame.offset;
         
@@ -116,14 +114,8 @@ static void RxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head, u16 le
 * @retval 是否成功处理了数据包
 */
 bool NaviPack_SessionRxProcessor(NavipackComm_Type *comm, u8 data)
-{
-    if(comm->rxFrame.buffer != comm->rxBuffer)
-    {
-        comm->rxFrame.buffer = comm->rxBuffer;
-        comm->rxFrame.size = comm->rxSize;
-    }
-    
-    if(Navipack_TransportUnpacking(&comm->rxFrame, data))
+{   
+    if(Navipack_TransportUnpacking(comm, data))
     {
         //解包处理成功
         comm->rxDataLen = comm->rxFrame.offset;

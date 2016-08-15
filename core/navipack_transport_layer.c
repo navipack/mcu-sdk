@@ -20,9 +20,13 @@
 * @param  data   : 接收的数据，单 byte
 * @retval 是否成功解包
 */
-bool Navipack_TransportUnpacking(TransportFrame_Type *pframe, u8 data)
+bool Navipack_TransportUnpacking(NavipackComm_Type *comm, u8 data)
 {
-    if( (pframe->offset >= pframe->size) //当接收的数据长度超过接收SIZE
+    TransportFrame_Type *pframe = &comm->rxFrame;
+    u8* buffer = comm->rxBuffer;
+    u16 size = comm->rxSize;
+    
+    if( (pframe->offset >= size) //当接收的数据长度超过接收SIZE
         || ((data == FRAMEHEAD) && (pframe->lastByte == FRAMEHEAD)) )
     {
         //复位
@@ -36,9 +40,9 @@ bool Navipack_TransportUnpacking(TransportFrame_Type *pframe, u8 data)
     { 
         //收到结束符
         pframe->offset -= 2;
-        pframe->checkSum -= (FRAMETAIL + pframe->buffer[pframe->offset]);
+        pframe->checkSum -= (FRAMETAIL + buffer[pframe->offset]);
 
-        if(pframe->checkSum == pframe->buffer[pframe->offset])
+        if(pframe->checkSum == buffer[pframe->offset])
         {                                       
             pframe->recvFlag = false;
             return true;
@@ -58,7 +62,7 @@ bool Navipack_TransportUnpacking(TransportFrame_Type *pframe, u8 data)
         {
             if( (data == FRAMEHEAD) || (data == FRAMETAIL) || (data == FRAMECTRL) )
             {
-                pframe->buffer[pframe->offset++] = data;
+                buffer[pframe->offset++] = data;
                 pframe->ctrlFlag = false;
                 pframe->checkSum += data;
                 data = FRAMECTRL;
@@ -78,7 +82,7 @@ bool Navipack_TransportUnpacking(TransportFrame_Type *pframe, u8 data)
             }
             else
             {
-                pframe->buffer[pframe->offset++] = data;
+                buffer[pframe->offset++] = data;
                 pframe->checkSum += data;
             }
         }
@@ -97,25 +101,28 @@ bool Navipack_TransportUnpacking(TransportFrame_Type *pframe, u8 data)
 * @param  pack_flag : 打包模式 @ref PACK_FLAG_define 按 bit 设置
 * @retval 打包错误则返回 false
 */
-bool Navipack_TransportPacking(TransportFrame_Type *pframe, u8 *in_buf, u16 len, u8 pack_flag)
+bool Navipack_TransportPacking(NavipackComm_Type *comm, u8 *in_buf, u16 len, u8 pack_flag)
 {
     u16 i;
+    TransportFrame_Type *pframe = &comm->txFrame;
+    u8* buffer = comm->txBuffer;
+    u16 size = comm->txSize;
     
     if((pack_flag & PACK_FLAG_BEGIN) != 0)
     {
         pframe->offset = 0;
         pframe->checkSum = 0;
         
-        if(len > pframe->size - 5)      //当发送的数据长度超过发送SIZE - 包头字节数 - 包尾字节数 - 校验位字节数
+        if(len > size - 5)      //当发送的数据长度超过发送SIZE - 包头字节数 - 包尾字节数 - 校验位字节数
             return false;
         
-        pframe->buffer[pframe->offset++] = FRAMEHEAD;      //加头
-        pframe->buffer[pframe->offset++] = FRAMEHEAD;
+        buffer[pframe->offset++] = FRAMEHEAD;      //加头
+        buffer[pframe->offset++] = FRAMEHEAD;
         
     }
     else
     {
-        if(len + pframe->offset > pframe->size - 3)      //当发送的数据长度超过发送SIZE - 包尾字节数 - 校验位字节数
+        if(len + pframe->offset > size - 3)      //当发送的数据长度超过发送SIZE - 包尾字节数 - 校验位字节数
             return false;
     }
 
@@ -123,11 +130,11 @@ bool Navipack_TransportPacking(TransportFrame_Type *pframe, u8 *in_buf, u16 len,
     {
         if( (*in_buf == FRAMECTRL) || (*in_buf == FRAMEHEAD)|| (*in_buf == FRAMETAIL) )
         {
-            pframe->buffer[pframe->offset++] = FRAMECTRL;
-            if((len - i) + pframe->offset > pframe->size - 3)    //溢出判断
+            buffer[pframe->offset++] = FRAMECTRL;
+            if((len - i) + pframe->offset > size - 3)    //溢出判断
                 return false;
         }
-        pframe->buffer[pframe->offset++] = *in_buf;
+        buffer[pframe->offset++] = *in_buf;
         pframe->checkSum += *in_buf;
         in_buf++;
     }
@@ -137,14 +144,14 @@ bool Navipack_TransportPacking(TransportFrame_Type *pframe, u8 *in_buf, u16 len,
         //校验和
         if ( (pframe->checkSum == FRAMECTRL) || (pframe->checkSum == FRAMEHEAD) || (pframe->checkSum == FRAMETAIL) )
         {
-            pframe->buffer[pframe->offset++] = FRAMECTRL;
-            if(pframe->offset > pframe->size - 3)    //溢出判断
+            buffer[pframe->offset++] = FRAMECTRL;
+            if(pframe->offset > size - 3)    //溢出判断
                 return false;
         }
-        pframe->buffer[pframe->offset++] = pframe->checkSum;
+        buffer[pframe->offset++] = pframe->checkSum;
 
-        pframe->buffer[pframe->offset++] = FRAMETAIL;      //加尾
-        pframe->buffer[pframe->offset++] = FRAMETAIL;
+        buffer[pframe->offset++] = FRAMETAIL;      //加尾
+        buffer[pframe->offset++] = FRAMETAIL;
     }
 
     return true;

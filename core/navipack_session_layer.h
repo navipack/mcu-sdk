@@ -10,8 +10,7 @@
 #ifndef __NAVIPACK_SESSION_LAYER_H__
 #define __NAVIPACK_SESSION_LAYER_H__
 
-#include "navipack_type.h"
-#include "navipack_api.h"
+#include "navipack_def.h"
 
 bool NaviPack_SessionTxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head);
 bool NaviPack_SessionRxProcessor(NavipackComm_Type *comm, u8 data);

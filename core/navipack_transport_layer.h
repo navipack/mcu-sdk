@@ -10,7 +10,8 @@
 #ifndef  __NAVIPACK_TRANSPORT_LAYER_H__
 #define  __NAVIPACK_TRANSPORT_LAYER_H__
 
-#include "navipack_type.h"
+#include "navipack_def.h"
+#include "navipack_api.h"
 
 /** @defgroup PACK_FLAG_define
   * @{
@@ -19,20 +20,9 @@
 #define PACK_FLAG_END       0x02
 /**
   * @}
-  */ 
+  */
 
-typedef struct
-{
-    bool recvFlag;		///< 接收标志
-	bool ctrlFlag;		///< 转义符标志
-	u8 offset;		    ///< 当前buf位置
-	u8 lastByte;		///< 上次数据
-	u8 checkSum;		///< 校验和
-    u8* buffer;
-    u16 size;
-}TransportFrame_Type;
-
-bool Navipack_TransportUnpacking(TransportFrame_Type *pframe, u8 data);
-bool Navipack_TransportPacking(TransportFrame_Type *pframe, u8 *in_buf, u16 len, u8 pack_flag);
+bool Navipack_TransportUnpacking(NavipackComm_Type *comm, u8 data);
+bool Navipack_TransportPacking(NavipackComm_Type *comm, u8 *in_buf, u16 len, u8 pack_flag);
 
 #endif

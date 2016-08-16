@@ -70,8 +70,7 @@ bool RegisterRead(NavipackComm_Type *comm, NaviPack_HeadType *head, u8 err_id, u
         
         Navipack_UnlockReg(reg_id);
         
-        Navipack_SendData(comm->txBuffer, comm->txDataLen);
-        return true;
+        return Navipack_TxCallback(comm->txBuffer, comm->txDataLen);
     }
     
     return false;

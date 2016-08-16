@@ -92,9 +92,9 @@ bool NaviPack_TxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head)
 * @brief  实际发送数据的函数
 * @param  pbuf : 数据指针
 * @param  len  : 数据长度
-* @retval None
+* @retval 是否成功发送
 */
-void Navipack_TxCallback(u8* pbuf, u16 len)
+bool Navipack_TxCallback(u8* pbuf, u16 len)
 {
     // TODO: 用户添加实际发送数据的处理，如发送到串口
 }

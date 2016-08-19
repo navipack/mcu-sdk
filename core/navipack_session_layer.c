@@ -136,14 +136,11 @@ bool NaviPack_SessionTxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *hea
     switch(head->functionCode)
     {
     case FUNC_ID_READ_STATUS:
-        RegisterRead(comm, head, 0, (u8*)&comm->status, sizeof(comm->status), REG_ID_STATUS);
-        break;
+        return RegisterRead(comm, head, 0, (u8*)&comm->status, sizeof(comm->status), REG_ID_STATUS);
     case FUNC_ID_READ_CONTROL:
-        RegisterRead(comm, head, 0, (u8*)&comm->control, sizeof(comm->control), REG_ID_COTROL);
-        break;
+        return RegisterRead(comm, head, 0, (u8*)&comm->control, sizeof(comm->control), REG_ID_COTROL);
     case FUNC_ID_READ_CONFIG:
-        RegisterRead(comm, head, 0, (u8*)&comm->config, sizeof(comm->config), REG_ID_CONFIG);
-        break;
+        return RegisterRead(comm, head, 0, (u8*)&comm->config, sizeof(comm->config), REG_ID_CONFIG);
     case FUNC_ID_WRITE_CONTROL:
         break;
     default:

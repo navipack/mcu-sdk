@@ -21,8 +21,6 @@
 */
 bool RegisterWrite(NaviPack_HeadType *head, u8 *reg, u32 reg_size, u8 reg_id)
 {
-    u8 err;
-    
     if(head->startAddr >= reg_size || head->startAddr + head->len > reg_size)
     {
         return false;

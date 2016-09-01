@@ -4,7 +4,7 @@
 * @author  Jalon
 * @date    2016.06.16
 * @brief   通讯协议会话层解析相关函数
-* @attention Copyright (C) 2016 Inmotion
+* @attention Copyright (C) 2016 Inmotion Corporation
 ******************************************************************************
 */
 #include <string.h>

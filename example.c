@@ -4,7 +4,7 @@
 * @author  Jalon
 * @date    2016.07.01
 * @brief   该代码只是调用通讯接口范例，并非直接可运行的程序
-* @attention Copyright (C) 2016 Inmotion
+* @attention Copyright (C) 2016 Inmotion Corporation
 ******************************************************************************
 */
 

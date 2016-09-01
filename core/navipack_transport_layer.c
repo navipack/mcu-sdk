@@ -4,7 +4,7 @@
 * @author  Jalon
 * @date    2016.02.01
 * @brief   通讯协议传输层解包封包等相关函数
-* @attention Copyright (C) 2016 Inmotion
+* @attention Copyright (C) 2016 Inmotion Corporation
 ******************************************************************************
 */
 #include "navipack_transport_layer.h"

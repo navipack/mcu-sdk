@@ -5,7 +5,7 @@
 * @date    2016.07.01
 * @brief   通讯协议接口，该文件在移植过程中需要根据实际情况更改，
            部分函数需要用户实现
-* @attention Copyright (C) 2016 Inmotion
+* @attention Copyright (C) 2016 Inmotion Corporation
 ******************************************************************************
 */
 #include "navipack_api.h"

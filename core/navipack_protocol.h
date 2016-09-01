@@ -4,7 +4,7 @@
 * @author  Jalon
 * @date    2016.06.16
 * @brief   通讯协议会话层相关数据结构定义
-* @attention Copyright (C) 2016 Inmotion
+* @attention Copyright (C) 2016 Inmotion Corporation
 ******************************************************************************
 */
 #ifndef __NAVIPACK_PROTOCOL_H__

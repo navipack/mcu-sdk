@@ -4,7 +4,7 @@
 * @author  Jalon
 * @date    2016.02.01
 * @brief   通讯协议解包封包等相关声明
-* @attention Copyright (C) 2016 Inmotion
+* @attention Copyright (C) 2016 Inmotion Corporation
 ******************************************************************************
 */
 #ifndef  __NAVIPACK_TRANSPORT_LAYER_H__

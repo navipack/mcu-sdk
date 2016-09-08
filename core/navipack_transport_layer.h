@@ -13,7 +13,7 @@
 #include "navipack_def.h"
 #include "navipack_api.h"
 
-/** @defgroup PACK_FLAG_define
+/** @defgroup PACK_FLAG_define 传输层打包模式标志
   * @{
   */
 #define PACK_FLAG_BEGIN     0x01

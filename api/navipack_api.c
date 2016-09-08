@@ -15,8 +15,7 @@
 
 /**
 * @brief  初始化
-* @param  None
-* @retval None
+* @retval 是否成功
 */
 bool NaviPack_Init(void)
 {

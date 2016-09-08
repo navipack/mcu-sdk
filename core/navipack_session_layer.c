@@ -40,6 +40,7 @@ bool RegisterWrite(NaviPack_HeadType *head, u8 *reg, u32 reg_size, u8 reg_id)
 * @brief  执行读寄存器操作
 * @param  comm     : 通讯对象
 * @param  head     : 数据头指针
+* @param  err_id   : 错误 ID
 * @param  reg      : 寄存器地址
 * @param  reg_size : 寄存器尺寸
 * @param  reg_id   : 寄存器 ID

@@ -16,8 +16,8 @@
 
 /**
 * @brief  解包函数
-* @param  pframe : 帧对象
-* @param  data   : 接收的数据，单 byte
+* @param  comm : 通讯对象
+* @param  data : 接收的数据，单 byte
 * @retval 是否成功解包
 */
 bool Navipack_TransportUnpacking(NavipackComm_Type *comm, u8 data)
@@ -95,7 +95,7 @@ bool Navipack_TransportUnpacking(NavipackComm_Type *comm, u8 data)
 
 /**
 * @brief  打包函数
-* @param  pframe    : 帧对象
+* @param  comm      : 通讯对象
 * @param  in_buf    : 打包数据指针
 * @param  len       : 打包数据长度
 * @param  pack_flag : 打包模式 @ref PACK_FLAG_define 按 bit 设置

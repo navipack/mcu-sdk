@@ -43,7 +43,7 @@ void Recv(void)
     // 用户自己的接收程序，从通讯接口接收数据
     u8 data = RecvData();
         
-    // 逐个 byte 的调用该接口，读取新收到的数据方法见 RxProcessor() 函数
+    // 逐个 byte 的调用该接口。解包成功之后的数据可以在 Navipack_RxCallback() 中获得
     if(NaviPack_RxProcessor(&comm, data))
     {
         //成功接收并处理了一个寄存器操作

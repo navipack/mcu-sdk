@@ -9,6 +9,9 @@
 */
 #ifndef __NAVIPACK_DEF_H__
 #define __NAVIPACK_DEF_H__
+/** @addtogroup Navipack_MCU_SDK
+* @{
+*/
 
 #include "navipack_type.h"
 
@@ -49,4 +52,7 @@ typedef struct
     NaviPack_ConfigType config; ///< 参数寄存器
 }NavipackComm_Type;
 
+/**
+* @}
+*/
 #endif

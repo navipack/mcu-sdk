@@ -9,19 +9,25 @@
 */
 #ifndef  __NAVIPACK_TRANSPORT_LAYER_H__
 #define  __NAVIPACK_TRANSPORT_LAYER_H__
+/** @addtogroup Transport_Layer
+* @{
+*/
 
 #include "navipack_def.h"
 
-/** @defgroup PACK_FLAG_define 传输层打包模式标志
-  * @{
-  */
+/** @defgroup PACK_FLAG_define Transport layer packing flags
+* @{
+*/
 #define PACK_FLAG_BEGIN     0x01
 #define PACK_FLAG_END       0x02
 /**
-  * @}
-  */
+* @}
+*/
 
 bool TransportUnpacking(TransportFrame_Type *pframe, u8* buffer, u16 size, u8 data);
 bool TransportPacking(TransportFrame_Type *pframe, u8* buffer, u16 size, u8 *in_buf, u16 len, u8 pack_flag);
 
+/**
+* @}
+*/
 #endif

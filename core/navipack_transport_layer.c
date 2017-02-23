@@ -7,6 +7,16 @@
 * @attention Copyright (C) 2016 Inmotion Corporation
 ******************************************************************************
 */
+
+/** @addtogroup Navipack_MCU_SDK
+* @{
+*/
+
+/** @defgroup Transport_Layer Transport layer
+* @brief Navipack Transport layer
+* @{
+*/
+
 #include "navipack_transport_layer.h"
 
 //传输层协议标志
@@ -163,3 +173,11 @@ bool TransportPacking(TransportFrame_Type *pframe, u8* buffer, u16 size, u8 *in_
 
     return true;
 }
+
+/**
+* @}
+*/
+
+/**
+* @}
+*/

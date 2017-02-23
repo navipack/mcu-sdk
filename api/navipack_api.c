@@ -8,6 +8,16 @@
 * @attention Copyright (C) 2016 Inmotion Corporation
 ******************************************************************************
 */
+
+/** @addtogroup Navipack_MCU_SDK
+* @{
+*/
+
+/** @defgroup MCU_SDK_API SDK API
+* @brief Navipack MCU SDK API
+* @{
+*/
+
 #include "navipack_api.h"
 #include "navipack_session_layer.h"
 
@@ -145,3 +155,11 @@ void Navipack_UnlockReg(u8 reg_id)
         break;
     }
 }
+
+/**
+* @}
+*/
+
+/**
+* @}
+*/

@@ -9,6 +9,9 @@
 */
 #ifndef __NAVIPACK_SESSION_LAYER_H__
 #define __NAVIPACK_SESSION_LAYER_H__
+/** @addtogroup Session_Layer
+* @{
+*/
 
 #include "navipack_def.h"
 #include "navipack_transport_layer.h"
@@ -23,4 +26,7 @@ bool Navipack_TransportPacking(NavipackComm_Type *comm, u8 *in_buf, u16 len, u8 
 bool Navipack_TxCallback(u8* pbuf, u16 len);
 bool Navipack_RxCallback(NavipackComm_Type *comm, NaviPack_HeadType *head);
 
+/**
+* @}
+*/
 #endif

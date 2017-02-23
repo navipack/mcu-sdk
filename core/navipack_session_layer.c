@@ -7,6 +7,16 @@
 * @attention Copyright (C) 2016 Inmotion Corporation
 ******************************************************************************
 */
+
+/** @addtogroup Navipack_MCU_SDK
+* @{
+*/
+
+/** @defgroup Session_Layer Session layer
+* @brief Navipack Session layer
+* @{
+*/
+
 #include <string.h>
 #include "navipack_session_layer.h"
 #include "navipack_api.h"
@@ -172,3 +182,11 @@ bool NaviPack_SessionTxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *hea
     
     return true;
 }
+
+/**
+* @}
+*/
+
+/**
+* @}
+*/

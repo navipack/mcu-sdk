@@ -120,12 +120,6 @@ static void RxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head, u16 le
 {
     if(head->deviceAddr == NAVIPACK_SLAVE_ID)
     {
-        if(head->functionCode == FUNC_ID_BOOT_READ_UID)
-        {
-            Navipack_RxCallback(comm, head);
-            return;
-        }
-        
         if(head->len != len - sizeof(NaviPack_HeadType))
         {
             return;

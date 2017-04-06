@@ -13,7 +13,7 @@
 * @{
 */
 
-#include "navipack_def.h"
+#include "navipack_session_layer.h"
 
 bool NaviPack_Init(void);
 bool NaviPack_TxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head);

@@ -120,6 +120,12 @@ static void RxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head, u16 le
 {
     if(head->deviceAddr == NAVIPACK_SLAVE_ID)
     {
+        if(head->functionCode == FUNC_ID_BOOT_READ_UID)
+        {
+            Navipack_RxCallback(comm, head);
+            return;
+        }
+        
         if(head->len != len - sizeof(NaviPack_HeadType))
         {
             return;
@@ -156,31 +162,6 @@ bool NaviPack_SessionRxProcessor(NavipackComm_Type *comm, u8 data)
         return true;
     }
     return false;
-}
-
-/**
-* @brief  通讯发送数据处理函数
-* @param  comm : 通讯对象
-* @param  head : 接收数据，单 byte
-* @retval 是否成功处理了数据包
-*/
-bool NaviPack_SessionTxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head)
-{
-    switch(head->functionCode)
-    {
-    case FUNC_ID_READ_STATUS:
-        return RegisterRead(comm, head, 0, (u8*)&comm->status, sizeof(comm->status), REG_ID_STATUS);
-    case FUNC_ID_READ_CONTROL:
-        return RegisterRead(comm, head, 0, (u8*)&comm->control, sizeof(comm->control), REG_ID_COTROL);
-    case FUNC_ID_READ_CONFIG:
-        return RegisterRead(comm, head, 0, (u8*)&comm->config, sizeof(comm->config), REG_ID_CONFIG);
-    case FUNC_ID_WRITE_CONTROL:
-        break;
-    default:
-        return false;
-    }
-    
-    return true;
 }
 
 /**

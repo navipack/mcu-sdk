@@ -28,10 +28,10 @@ typedef struct
 {
     bool recvFlag;      ///< 接收标志
     bool ctrlFlag;      ///< 转义符标志
-    u8 offset;          ///< 当前buf位置
+    u32 errorCount;     ///< 错误统计
+    u16 offset;         ///< 当前buf位置
     u8 lastByte;        ///< 上次数据
     u8 checkSum;        ///< 校验和
-    u32 errorCount;     ///< 错误统计
 }TransportFrame_Type;
 
 bool TransportUnpacking(TransportFrame_Type *pframe, u8* buffer, u16 size, u8 data);

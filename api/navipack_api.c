@@ -95,8 +95,6 @@ bool NaviPack_TxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head)
         return RegisterRead(comm, head, 0, (u8*)&comm->control, sizeof(comm->control), REG_ID_COTROL);
     case FUNC_ID_READ_CONFIG:
         return RegisterRead(comm, head, 0, (u8*)&comm->config, sizeof(comm->config), REG_ID_CONFIG);
-    case FUNC_ID_WRITE_CONTROL:
-        break;
     }
     
     return false;

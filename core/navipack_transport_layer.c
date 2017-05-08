@@ -48,6 +48,13 @@ bool TransportUnpacking(TransportFrame_Type *pframe, u8* buffer, u16 size, u8 da
         if(data == FRAMETAIL && pframe->lastByte == FRAMETAIL)
         { 
             pframe->recvFlag = false;
+            
+            if(pframe->offset < 3)
+            {
+                pframe->errorCount++;
+                return false;
+            }
+            
             pframe->offset -= 2;
             pframe->checkSum -= (FRAMETAIL + buffer[pframe->offset]);
 
@@ -57,8 +64,6 @@ bool TransportUnpacking(TransportFrame_Type *pframe, u8* buffer, u16 size, u8 da
             }
             else
             {
-                pframe->offset = 0;
-                pframe->checkSum = 0;
                 pframe->errorCount++;
                 return false;
             }
@@ -78,8 +83,6 @@ bool TransportUnpacking(TransportFrame_Type *pframe, u8* buffer, u16 size, u8 da
             else
             {
                 // 复位
-                pframe->offset = 0;
-                pframe->checkSum = 0;
                 pframe->recvFlag = false;
                 pframe->errorCount++;
             }
@@ -101,8 +104,6 @@ bool TransportUnpacking(TransportFrame_Type *pframe, u8* buffer, u16 size, u8 da
         if(pframe->offset >= size)
         {
             // 复位
-            pframe->offset = 0;
-            pframe->checkSum = 0;
             pframe->recvFlag = false;
             pframe->errorCount++;
         }

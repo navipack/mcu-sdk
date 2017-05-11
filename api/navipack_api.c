@@ -46,7 +46,7 @@ bool NaviPack_RxProcessor(NavipackComm_Type *comm, u8 data)
 /**
 * @brief  接收到合法的寄存器请求时回调
 * @param  comm : 通讯结构指针
-* @param  head : 数据指针
+* @param  head : 数据头指针
 * @retval 是否处理了请求
 */
 bool Navipack_RxCallback(NavipackComm_Type *comm, NaviPack_HeadType *head)
@@ -78,7 +78,7 @@ bool Navipack_RxCallback(NavipackComm_Type *comm, NaviPack_HeadType *head)
 /**
 * @brief  通讯发送数据处理函数
 * @param  comm : 通讯对象
-* @param  head : 接收数据，单 byte
+* @param  head : 数据头指针
 * @retval 是否成功处理了数据包
 */
 bool NaviPack_TxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head)
@@ -109,6 +109,18 @@ bool NaviPack_TxProcessor(NavipackComm_Type *comm, NaviPack_HeadType *head)
 bool Navipack_TxCallback(u8* pbuf, u16 len)
 {
     // TODO: 用户添加实际发送数据的处理，如发送到串口
+}
+
+/**
+* @brief  实际发送数据的函数
+* @param  head : 数据头指针
+* @param  len  : 数据内容长度
+* @retval 是否成功发送
+*/
+bool Navipack_CheckLength(NaviPack_HeadType *head, u16 len)
+{
+    return (head->functionCode != FUNC_ID_WRITE_CONTROL && head->functionCode != FUNC_ID_WRITE_USER) 
+            || head->len == len - sizeof(NaviPack_HeadType);
 }
 
 /**

@@ -16,7 +16,7 @@
 
 NavipackComm_Type Comm;
 
-u8 RecvBuf[NAVIPACK_COMM_SIZE];
+u8 RecvBuf[NAVIPACK_COMM_SIZE+4];
 u8 SendBuf[NAVIPACK_COMM_SIZE*2+6];
 
 void SendStatus(void)

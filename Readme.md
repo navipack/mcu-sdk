@@ -28,9 +28,11 @@ MCU 使用的 Navipack 通讯 SDK。
 ## 用户寄存器
 用于收发用户自定义的数据。SDK 不关心数据内容，只起到一个透传的作用，用户要自己保证上层发送的数据类型和底层使用的相同。
 
-SDK 在接收到通过正确的接口发送来的用户数据后，会在 `Navipack_RxCallback()` 函数的 `case FUNC_ID_WRITE_USER:` 处通过 `RegisterWrite()` 函数将数据原封不动的写到参数给定的地址处（例中 UserReg 类型用户自定）。然后用户可直接读取 UserReg 获得新收到的数据。
+SDK 在接收到通过正确的接口发送来的用户数据后，会在 `Navipack_RxCallback()` 函数的 `case FUNC_ID_WRITE_USER:` 处通过 `RegisterWrite()` 函数将数据原封不动的写到参数给定的地址处（例中 `UserReg` 类型用户自定）。然后用户可直接读取 `UserReg` 获得新收到的数据。
 
 而 `NaviPack_TxProcessor()` 的 `case FUNC_ID_READ_USER:` 处的 `RegisterRead()`，则是将 head 指定的用户数据打包并发送出去。
+
+注意：初始化时 `rxBuffer` 和 `txBuffer` 的尺寸要满足 `UserReg` 的尺寸需求，否则通讯会失败。参考 `example.c`
 
 # 文件结构简介
     mcu-sdk
